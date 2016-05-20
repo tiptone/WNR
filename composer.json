@@ -1,0 +1,14 @@
+{
+    "name": "tiptone/WNR",
+    "description": "Front end for the Whisky Review Archive",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "WNR",
+        "Whisky Network Reviews"
+    ],
+    "homepage": "http://whiskynetworkreviews.com/",
+    "require": {
+        "php": ">=5.5",
+        "zendframework/zendframework": "~2.5"
+    }
+}

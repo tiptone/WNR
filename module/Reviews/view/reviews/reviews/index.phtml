@@ -1,0 +1,35 @@
+<div class="input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Find</button>
+    </span>
+    <input type="text" id="search" class="form-control" placeholder="Mellow Corn">
+</div>
+<div id="target"></div>
+<script type="text/javascript">
+$("#search").autocomplete({
+    source: "<?php echo $this->url('reviews', array('action' => 'autocomplete'));?>",
+    minLength: 3,
+    select: function(event, ui) {
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url('reviews', array('action' => 'search')); ?>',
+            dataType: 'html',
+            data: {
+                search: ui.item.label
+            },
+            success: function(html) {
+                console.log(html);
+                $("#target").html(html);
+                $("#search").val('');
+                $("#search").blur();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+                alert('Doh');
+            }
+        });
+    }
+});
+</script>
