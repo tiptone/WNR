@@ -7,6 +7,10 @@
 <div id="target"></div>
 <script type="text/javascript">
 $("#search").autocomplete({
+    open: function(event, ui) {
+        //$('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
+        $('.ui-autocomplete').off('mouseenter');
+    },
     source: "<?php echo $this->url('reviews', array('action' => 'autocomplete'));?>",
     minLength: 3,
     select: function(event, ui) {
