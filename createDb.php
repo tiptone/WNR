@@ -23,8 +23,6 @@ $stmt = $db->prepare($sql);
 
 if (($handle = fopen("reviews.csv", "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",", '"')) !== FALSE) {
-        //$num = count($data);
-        //echo "<p> $num fields in line $row: <br /></p>\n";
         $row++;
 		
 		$stmt->bindValue(':timestamp', trim($data[0]));

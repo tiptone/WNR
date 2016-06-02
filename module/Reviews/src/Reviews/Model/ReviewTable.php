@@ -26,6 +26,17 @@ class ReviewTable
         return $resultSet;
     }
 
+    public function findUserMatches($name)
+    {
+        $where = array(
+            new Expression("reviewer like '%$name%'")
+        );
+
+        $resultSet = $this->tableGateway->select($where);
+
+        return $resultSet;
+    }
+
     // @signde likes it Fuzzy
     public function findFuzzyMatches($name)
     {

@@ -20,6 +20,11 @@ class ReviewsController extends AbstractActionController
         return array();
     }
 
+    public function userAction()
+    {
+        return array();
+    }
+
     public function autocompleteAction()
     {
         $search = $this->params()->fromQuery('term', 'mellow');
@@ -33,6 +38,23 @@ class ReviewsController extends AbstractActionController
                 $out[] = $brand->whiskey;
             }
         }
+        return new JsonModel($out);
+    }
+
+    public function userautocompleteAction()
+    {
+        $search = $this->params()->fromQuery('term', 'texacer');
+
+        $users = $this->getReviewsTable()->findUserMatches($search);
+
+        $out = array();
+
+        foreach ($users as $user) {
+            if (!in_array($user->reviewer, $out)) {
+                $out[] = $user->reviewer;
+            }
+        }
+
         return new JsonModel($out);
     }
 
