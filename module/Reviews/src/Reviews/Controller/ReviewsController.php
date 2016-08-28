@@ -74,12 +74,6 @@ class ReviewsController extends AbstractActionController
 
     public function searchAction()
     {
-        $high    = 0;
-        $low     = 100;
-        $average = 0;
-        $count   = 0;
-        $total   = 0;
-
         $search = $this->params()->fromPost('search');
 
         $vm = new ViewModel();

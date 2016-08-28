@@ -18,7 +18,7 @@ class ReviewTable
     public function findMatches($name)
     {
         $where = array(
-            new Expression("whiskey like '%$name%'")
+            new Expression("whiskey like ?", '%' . $name . '%')
         );
 
         $resultSet = $this->tableGateway->select($where);
@@ -29,7 +29,7 @@ class ReviewTable
     public function findUserMatches($name)
     {
         $where = array(
-            new Expression("reviewer like '%$name%'")
+            new Expression("reviewer like ?", '%' . $name . '%')
         );
 
         $resultSet = $this->tableGateway->select($where);
@@ -54,7 +54,7 @@ class ReviewTable
     public function findByName($name)
     {
         $where = array(
-            'whiskey' => $name
+            'whiskey = ?' => $name
         );
 
         $resultSet = $this->tableGateway->select($where);
