@@ -67,7 +67,7 @@ class ReviewTable
     public function findByReviewer($reviewer)
     {
         $where = array(
-            'reviewer' => $reviewer
+            'reviewer = ?' => $reviewer
         );
 
         $resultSet = $this->tableGateway->select($where);
