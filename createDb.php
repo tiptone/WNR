@@ -1,8 +1,19 @@
 <?php
 
+$options = getopt('i:o:');
+
+if (!isset($options['i']) || !isset($options['o'])) {
+    echo "Error: input file (CSV) and output filename must be supplied." . PHP_EOL;
+    echo "  usage: php reviews.php -- -i reviews.csv -o reviews.db" . PHP_EOL;
+    exit;
+}
+
+$infile  = $options['i'];
+$outfile = $options['o'];
+
 $row = 1;
 
-$db = new SQLite3('reviews.db');
+$db = new SQLite3($outfile);
 
 $sql = "CREATE TABLE reviews (
   timestamp text,
@@ -21,7 +32,7 @@ $sql = "insert into reviews values (:timestamp, :whiskey, :reviewer, :url, :rati
 
 $stmt = $db->prepare($sql);
 
-if (($handle = fopen("reviews.csv", "r")) !== FALSE) {
+if (($handle = fopen($infile, "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",", '"')) !== FALSE) {
         $row++;
 		

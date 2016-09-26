@@ -5,24 +5,8 @@ Introduction
 ------------
 A simple front end to the Whisky Network Review Archive. Updating the data
 is as simple as exporting a copy of the Google Docs spreadsheet as .csv
-and then using sqlite3 to .import it into a "reviews" table.
+and using it as an input to createDb.php.
 
-```bash
-sqlite3 data/reviews.db
 ```
-
-```sql
-sqlite> CREATE TABLE reviews (
-  timestamp text,
-  whiskey text,
-  reviewer text,
-  url text,
-  rating integer,
-  region text,
-  price text,
-  date text
-);
-
-sqlite> .import export.csv reviews
-sqlite> .quit
+php -f createDb.php -- -i GoogleDocs.csv -o reviews.db
 ```
