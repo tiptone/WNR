@@ -62,7 +62,11 @@
             <?php echo $this->content; ?>
             <hr>
             <footer>
-                <p>&copy; <?php echo date('Y') ?> by <a href="http://reddit.com/u/Scooty-PuffSr">Scooty-PuffSr</a></p>
+            <?php
+            $time = filemtime(__DIR__ . '/../../../../data/reviews.db');
+            $date = date('m-d-Y', $time);
+            ?>
+                <p>&copy; <?php echo date('Y') ?> by <a href="http://reddit.com/u/Scooty-PuffSr">Scooty-PuffSr</a> - Synced with Archive on <?php echo $date; ?></p>
             </footer>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
