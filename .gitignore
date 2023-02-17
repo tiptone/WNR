@@ -11,3 +11,5 @@ vendor
 composer.phar
 reviews*
 public/google*
+public/css
+public/js
