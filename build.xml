@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="WNR" basedir="." default="build">
+    <property name="build.dir" value="build" />
+    <property name="build.name" value="WNR" />
+    <property name="build.version" value="1.0" />
+    <property name="build.target" value="./${build.dir}/${build.name}-${build.version}" />
+    <property name="build.env" value="development" override="true" />
+    
+    <target name="build:clean" description="Cleans up build artifacts">
+        <delete dir="${build.dir}" />
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${build.target}" />
+    </target>
+    
+    <target name="build:composer">
+        <if>
+            <equals arg1="${build.env}" arg2="production" />
+            <then>
+                <composer composer="/usr/local/bin/composer" command="install">
+                    <arg value="--working-dir" />
+                    <arg path="." />
+                    <arg value="--no-dev" />
+                </composer>
+            </then>
+            <else>
+                <composer composer="/usr/local/bin/composer" command="install">
+                    <arg value="--working-dir" />
+                    <arg path="." />
+                </composer>
+            </else>
+        </if>
+    </target>
+    
+    <target name="build:files">
+        <copy todir="${build.target}">
+            <fileset dir=".">
+                <include name="**" />
+                <exclude name=".*" />
+                <exclude name="build.xml" />
+                <exclude name="composer.*" />
+                <exclude name="README.md" />
+                <exclude name="LICENSE.txt" />
+                <exclude name="build/**" />
+            </fileset>
+        </copy>
+
+        <copy todir="${build.target}/public">
+            <fileset dir="./vendor/foundation/foundation-sites/dist">
+                <include name="**" />
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="deploy:clean">
+        <delete file="${build.target}.tar.gz" />
+    </target>
+    
+    <target name="deploy:create-package">
+        <property name="build.dist" value="${build.target}.tar.gz" />
+        
+        <echo>Creating dist package ${build.dist}</echo>
+        
+        <tar destfile="${build.dist}" compression="gzip">
+            <fileset dir="${build.dir}">
+                <include name="${build.name}-${build.version}" />
+            </fileset>
+        </tar>
+    </target>
+    
+    <target name="build" depends="build:clean, build:composer, build:files">
+        <echo>Build complete</echo>
+    </target>
+    
+    <target name="deploy" depends="deploy:clean, deploy:create-package">
+    	<echo>Deploy complete</echo>
+    </target>
+    
+</project>

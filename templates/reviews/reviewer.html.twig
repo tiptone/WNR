@@ -1,0 +1,17 @@
+<h3 class="text-center">
+    <a href="http://www.reddit.com/u/{{ reviewer }}" target="_blank">{{ reviewer }}</a>
+</h3>
+
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">Number of reviews</div>
+    <div class="cell small-6">{{ reviews|length }}</div>
+</div>
+
+<hr>
+
+{% for review in reviews %}
+    <div class="grid-x grid-margin-x">
+        <div class="cell small-6 text-right">{{ review.whiskey }}</div>
+        <div class="cell small-6"><a href="{{ review.url }}" target="_blank">{{ review.rating }}</a></div>
+    </div>
+{% endfor %}

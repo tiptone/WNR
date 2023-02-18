@@ -9,5 +9,7 @@ nbproject
 .settings
 vendor
 composer.phar
-reviews*
+build
 public/google*
+public/css
+public/js

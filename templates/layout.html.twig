@@ -1,0 +1,100 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whisky Network Reviews</title>
+    <link rel="stylesheet" href="/css/foundation.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css" />
+</head>
+<body>
+<!-- Start Top Bar -->
+<div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+            <li><a href="/">Whisky Network Reviews</a></li>
+            <li>
+                <a href="#">Menu</a>
+                <ul class="menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/reviews/user">User Search</a></li>
+                    <li><a href="/reviews/about">About</a></li>
+                    <li><a href="https://docs.google.com/spreadsheets/d/1X1HTxkI6SqsdpNSkSSivMzpxNT-oeTbjFFDdEkXD30o/edit#gid=695409533&fvid=484110565">Whisky Review Archive</a></li>
+                    <li><a href="https://reddit.com/r/whisky">/r/whisky</a></li>
+                    <li><a href="https://reddit.com/r/Scotch">/r/Scotch</a></li>
+                    <li><a href="https://reddit.com/r/Worldwhisky">/r/Worldwhisky</a></li>
+                    <li><a href="https://reddit.com/r/bourbon">/r/bourbon</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- End Top Bar -->
+
+<br>
+
+<div class="grid-container">
+    {{ include(template) }}
+
+    <hr>
+    <footer>
+        <p>&copy; {{ "now"|date("Y") }} by <a href="http://reddit.com/u/Scooty-PuffSr">Scooty-PuffSr</a> - Synced with Archive on {{ syncDate }}</p>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/what-input@5.2.10/dist/what-input.min.js" integrity="sha256-ZLjSztVkz5q3lKFjN9AgL6qR7TGLE+qnTXnNNTWtMF4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js" crossorigin="anonymous"></script>
+
+<script>
+    $(document).foundation();
+
+    $("#w-search").autocomplete({
+        open: function(event, ui) {
+            $('.ui-autocomplete').off('mouseenter');
+        },
+        source: "/reviews/autocomplete",
+        minLength: 3,
+        select: function(event, ui) {
+            $.ajax({
+                type: 'POST',
+                url: '/reviews/search',
+                dataType: 'html',
+                data: {
+                    search: ui.item.label
+                },
+                success: function(html) {
+                    $("#target").html(html);
+                    $("#search").val('');
+                    $("#search").blur();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    alert('Doh');
+                }
+            });
+        }
+    });
+
+    $("#u-search").autocomplete({
+        open: function(event, ui) {
+            //$('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
+            $('.ui-autocomplete').off('mouseenter');
+        },
+        source: "/reviews/userautocomplete",
+        minLength: 3,
+        select: function(event, ui) {
+            console.log(ui.item.label);
+            window.location.href = '/reviews/reviewer?id=' + ui.item.label;
+        }
+    });
+</script>
+
+</body>
+</html>
+
+
