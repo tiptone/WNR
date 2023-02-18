@@ -1,5 +1,5 @@
 {
-    "name": "tiptone/WNR",
+    "name": "tiptone/wnr",
     "description": "Front end for the Whisky Review Archive",
     "license": "BSD-3-Clause",
     "keywords": [
@@ -8,7 +8,14 @@
     ],
     "homepage": "http://whiskynetworkreviews.com/",
     "require": {
-        "php": ">=5.5",
-        "zendframework/zendframework": "2.4"
+        "monolog/monolog": "^2.9",
+        "php-di/php-di": "^6.4",
+        "foundation/foundation-sites": "^6.7",
+        "twig/twig": "^3.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tiptone\\Mvc\\": "src/"
+        }
     }
 }

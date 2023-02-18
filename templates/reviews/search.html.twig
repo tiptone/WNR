@@ -1,0 +1,39 @@
+<br>
+<h3 class="text-center">{{ search }}</h3>
+<br>
+
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">Number of Reviews</div>
+    <div class="cell small-6">{{ count }}</div>
+</div>
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">High Score</div>
+    <div class="cell small-6">{{ high }}</div>
+</div>
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">Low Score</div>
+    <div class="cell small-6">{{ low }}</div>
+</div>
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">Mean</div>
+    <div class="cell small-6">{{ mean|number_format }}</div>
+</div>
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">Median</div>
+    <div class="cell small-6">{{ median|number_format }}</div>
+</div>
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">Mode</div>
+    <div class="cell small-6">{{ mode|number_format }}</div>
+</div>
+
+<hr>
+
+{% for match in matches %}
+<div class="grid-x grid-margin-x">
+    <div class="cell small-6 text-right">
+        <a target="_blank" href="/reviews/reviewer?id={{ match.reviewer }}">{{ match.reviewer }}</a>
+    </div>
+    <div class="cell small-6"><a target="_blank" href="{{ match.url }}">{{ match.rating }}</a></div>
+</div>
+{% endfor %}
