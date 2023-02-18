@@ -9,6 +9,7 @@ nbproject
 .settings
 vendor
 composer.phar
+build
 public/google*
 public/css
 public/js

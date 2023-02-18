@@ -142,6 +142,9 @@ if ($responseClassName === JsonView::class) {
         exit;
     }
 
+    $syncDate = date('Y-m-d', filemtime(__DIR__ . '/../data/reviews.db'));
+    $response->setVariable('syncDate', $syncDate);
+
     if ($responseClassName === FragmentView::class) {
         echo $twig->render($templateName, $response->getVariables());
     } else {

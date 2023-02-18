@@ -39,7 +39,7 @@
 
     <hr>
     <footer>
-        <p>&copy; {{ "now"|date("Y") }} by <a href="http://reddit.com/u/Scooty-PuffSr">Scooty-PuffSr</a> - Synced with Archive on [REPLACE WITH DATE]</p>
+        <p>&copy; {{ "now"|date("Y") }} by <a href="http://reddit.com/u/Scooty-PuffSr">Scooty-PuffSr</a> - Synced with Archive on {{ syncDate }}</p>
     </footer>
 </div>
 
@@ -53,11 +53,9 @@
 
     $("#w-search").autocomplete({
         open: function(event, ui) {
-            //$('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
             $('.ui-autocomplete').off('mouseenter');
         },
         source: "/reviews/autocomplete",
-        //source: availableTags,
         minLength: 3,
         select: function(event, ui) {
             $.ajax({
@@ -68,7 +66,6 @@
                     search: ui.item.label
                 },
                 success: function(html) {
-                    console.log(html);
                     $("#target").html(html);
                     $("#search").val('');
                     $("#search").blur();
